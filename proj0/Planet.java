@@ -49,4 +49,38 @@ public class Planet {
         return this.calcForceExertedBy(p) * ((p.yyPos - this.yyPos) / this.calcDistance(p));
     }
 
+    public double calcNetForceExertedByX(Planet[] planets) {
+        if (planets == null) {
+            return 0;
+        }
+        if(planets.length == 0) {
+            return 0;
+        }
+        double s = 0;
+        for (int ix = 0; ix != planets.length; ++ix) {
+            if (this.equals(planets[ix])) {
+                continue;
+            }
+            s += this.calcForceExertedByX(planets[ix]);
+        }
+        return s;
+    }
+
+    public double calcNetForceExertedByY(Planet[] planets) {
+        if (planets == null) {
+            return 0;
+        }
+        if(planets.length == 0) {
+            return 0;
+        }
+        double s = 0;
+        for (int ix = 0; ix != planets.length; ++ix) {
+            if (this.equals(planets[ix])) {
+                continue;
+            }
+            s += this.calcForceExertedByY(planets[ix]);
+        }
+        return s;
+    }
+
 }
