@@ -1,6 +1,6 @@
 public class NBody {
 
-    public static final String backgroundImage = "images/starfield.jpg";
+    private static final String backgroundImage = "images/starfield.jpg";
 
     public static double readRadius(String filePath) {
         In in = new In(filePath);
@@ -58,7 +58,7 @@ public class NBody {
                 yForces[ix] = planets[ix].calcNetForceExertedByY(planets);
             }
             for (int ix = 0; ix != planets.length; ++ix) {
-                planets[ix].update(t, xForces[ix], yForces[ix]);
+                planets[ix].update(dt, xForces[ix], yForces[ix]);
             }
             StdDraw.picture(0, 0, backgroundImage);
             for (int ix = 0; ix != planets.length; ++ix) {
