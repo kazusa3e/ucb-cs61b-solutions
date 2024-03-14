@@ -83,4 +83,13 @@ public class Planet {
         return s;
     }
 
+    public void update(double t, double xxForce, double yyForce) {
+        final double xxAcc = xxForce / this.mass;
+        final double yyAcc = yyForce / this.mass;
+        this.xxVel += (t * xxAcc);
+        this.yyVel += (t * yyAcc);
+        this.xxPos += (t * this.xxVel);
+        this.yyPos += (t * this.yyVel);
+    }
+
 }
