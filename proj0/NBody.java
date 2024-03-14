@@ -77,7 +77,5 @@ public class NBody {
                 planets[i].yyVel, planets[i].mass, planets[i].imgFileName);
         }
 
-        System.exit(0);
-
     }
 }
