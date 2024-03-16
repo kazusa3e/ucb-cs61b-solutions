@@ -31,7 +31,7 @@ public class ArrayDeque<T> {
     private void resize(int caps) {
         T[] newContainer = (T[]) new Object[caps];
         int sz = 0;
-        for (int iter = this.head + 1; iter != idx(this.tail); iter = idx(iter + 1)) {
+        for (int iter = idx(this.head + 1); iter != idx(this.tail); iter = idx(iter + 1)) {
             newContainer[sz] = this.container[iter];
             sz += 1;
         }
