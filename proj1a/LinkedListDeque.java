@@ -1,9 +1,9 @@
 public class LinkedListDeque<T> {
 
     private static class LinkedListNode<T> {
-        public T data;
-        public LinkedListNode<T> prev;
-        public LinkedListNode<T> next;
+        private T data;
+        private LinkedListNode<T> prev;
+        private LinkedListNode<T> next;
     }
 
     private int size;
