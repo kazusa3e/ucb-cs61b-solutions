@@ -85,7 +85,7 @@ public class ArrayDeque<T> {
         T ret = this.container[idx(this.head + 1)];
         this.head = idx(this.head + 1);
         this.size -= 1;
-        if (this.loadFactor() < RESIZE_LOWER_BOUNDARY) {
+        if (this.capacity > INITIAL_CAPACITY && this.loadFactor() < RESIZE_LOWER_BOUNDARY) {
             resize((int) Math.floor(RESIZE_LOWER_FACTOR * this.capacity));
         }
         return ret;
@@ -98,7 +98,7 @@ public class ArrayDeque<T> {
         T ret = this.container[idx(this.tail - 1)];
         this.tail = idx(this.tail - 1);
         this.size -= 1;
-        if (this.loadFactor() < RESIZE_LOWER_BOUNDARY) {
+        if (this.capacity > INITIAL_CAPACITY && this.loadFactor() < RESIZE_LOWER_BOUNDARY) {
             resize((int) Math.floor(RESIZE_LOWER_FACTOR * this.capacity));
         }
         return ret;

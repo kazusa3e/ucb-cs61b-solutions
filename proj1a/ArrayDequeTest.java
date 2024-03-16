@@ -19,6 +19,15 @@ public class ArrayDequeTest {
         return true;
     }
 
+    public static boolean checkValue(int expected, int actual) {
+        if (expected != actual) {
+            System.out.println(
+                    "get() returned " + actual + ", but expected: " + expected);
+            return false;
+        }
+        return true;
+    }
+
     /*
      * Prints a nice message based on whether a test passed.
      * The \n means newline.
@@ -109,16 +118,38 @@ public class ArrayDequeTest {
         System.out.print("Printing out deque: ");
         lst.printDeque();
         System.out.println();
-        passed = (lst.get(0) == 1) && passed;
-        passed = (lst.get(1) == 2) && passed;
-        passed = (lst.get(2) == 3) && passed;
-        passed = (lst.get(3) == 4) && passed;
-        passed = (lst.get(4) == 5) && passed;
-        passed = (lst.get(5) == 6) && passed;
-        passed = (lst.get(6) == 7) && passed;
-        passed = (lst.get(7) == 8) && passed;
-        passed = (lst.get(8) == 9) && passed;
-        passed = (lst.get(9) == 10) && passed;
+        passed = checkValue(lst.get(0), 1) && passed;
+        passed = checkValue(lst.get(1), 2) && passed;
+        passed = checkValue(lst.get(2), 3) && passed;
+        passed = checkValue(lst.get(3), 4) && passed;
+        passed = checkValue(lst.get(4), 5) && passed;
+        passed = checkValue(lst.get(5), 6) && passed;
+        passed = checkValue(lst.get(6), 7) && passed;
+        passed = checkValue(lst.get(7), 8) && passed;
+        passed = checkValue(lst.get(8), 9) && passed;
+        passed = checkValue(lst.get(9), 10) && passed;
+        printTestStatus(passed);
+    }
+
+    public static void getTest() {
+        System.out.println("Running a get test.");
+        ArrayDeque<Integer> lst = new ArrayDeque<>();
+        boolean passed = checkEmpty(true, lst.isEmpty());
+        lst.addLast(0);
+        passed = checkValue(lst.get(0), 0) && passed;
+        passed = checkValue(lst.removeFirst(), 0) && passed;
+        lst.addFirst(3);
+        passed = checkValue(lst.removeFirst(), 3) && passed;
+        lst.addLast(5);
+        lst.addLast(6);
+        passed = checkValue(lst.removeFirst(), 5) && passed;
+        lst.addFirst(8);
+        passed = checkValue(lst.removeFirst(), 8) && passed;
+        passed = checkValue(lst.removeLast(), 6) && passed;
+        lst.addFirst(11);
+        passed = checkValue(lst.get(0), 11) && passed;
+        lst.addFirst(13);
+        passed = checkValue(lst.get(0), 13) && passed;
         printTestStatus(passed);
     }
 
@@ -127,5 +158,6 @@ public class ArrayDequeTest {
         addIsEmptySizeTest();
         addRemoveTest();
         resizeTest();
+        getTest();
     }
 }
