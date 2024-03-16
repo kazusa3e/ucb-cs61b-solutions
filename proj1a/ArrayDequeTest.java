@@ -45,7 +45,6 @@ public class ArrayDequeTest {
         ArrayDeque<String> lld1 = new ArrayDeque<String>();
 
         boolean passed = checkEmpty(true, lld1.isEmpty());
-
         lld1.addFirst("front");
 
         // The && operator is the same as "and" in Python.
@@ -93,9 +92,40 @@ public class ArrayDequeTest {
 
     }
 
+    public static void resizeTest() {
+        System.out.println("Running resize test.");
+        ArrayDeque<Integer> lst = new ArrayDeque<>();
+        boolean passed = checkEmpty(true, lst.isEmpty());
+        lst.addLast(1);
+        lst.addLast(2);
+        lst.addLast(3);
+        lst.addLast(4);
+        lst.addLast(5);
+        lst.addLast(6);
+        lst.addLast(7);
+        lst.addLast(8);
+        lst.addLast(9);
+        lst.addLast(10);
+        System.out.print("Printing out deque: ");
+        lst.printDeque();
+        System.out.println();
+        passed = (lst.get(0) == 1) && passed;
+        passed = (lst.get(1) == 2) && passed;
+        passed = (lst.get(2) == 3) && passed;
+        passed = (lst.get(3) == 4) && passed;
+        passed = (lst.get(4) == 5) && passed;
+        passed = (lst.get(5) == 6) && passed;
+        passed = (lst.get(6) == 7) && passed;
+        passed = (lst.get(7) == 8) && passed;
+        passed = (lst.get(8) == 9) && passed;
+        passed = (lst.get(9) == 10) && passed;
+        printTestStatus(passed);
+    }
+
     public static void main(String[] args) {
         System.out.println("Running tests.\n");
         addIsEmptySizeTest();
         addRemoveTest();
+        resizeTest();
     }
 }
