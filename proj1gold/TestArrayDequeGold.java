@@ -34,7 +34,7 @@ public class TestArrayDequeGold {
                         break;
                     }
                     Integer va = ads.removeFirst();
-                    Integer vb = ads.removeFirst();
+                    Integer vb = sad.removeFirst();
                     sb.append("removeFirst()");
                     assertEquals(sb.toString(), va, vb);
                     sb.append("\n");
@@ -45,7 +45,7 @@ public class TestArrayDequeGold {
                         break;
                     }
                     Integer va = ads.removeLast();
-                    Integer vb = ads.removeLast();
+                    Integer vb = sad.removeLast();
                     sb.append("removeLast()");
                     assertEquals(sb.toString(), va, vb);
                     sb.append("\n");
