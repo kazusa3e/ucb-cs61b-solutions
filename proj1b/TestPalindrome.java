@@ -27,4 +27,14 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome("aaaaab"));
     }
 
+    @Test
+    public void testPalindromesWithCC() {
+        CharacterComparator cc = new OffByOne();
+        assertTrue(palindrome.isPalindrome("", cc));
+        assertTrue(palindrome.isPalindrome("a", cc));
+        assertTrue(palindrome.isPalindrome("ab", cc));
+        assertTrue(palindrome.isPalindrome("flake", cc));
+        assertFalse(palindrome.isPalindrome("ac", cc));
+    }
+
 }

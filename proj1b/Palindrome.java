@@ -9,20 +9,30 @@ public class Palindrome {
         return ret;
     }
 
-    private boolean isPalindrome(Deque<Character> word) {
+    private boolean isPalindrome(Deque<Character> word, CharacterComparator cc) {
         if (word.size() == 0 || word.size() == 1) {
             return true;
         }
         char l = word.removeFirst();
         char r = word.removeLast();
-        if (l != r) {
+        if (!cc.equalChars(l, r)) {
             return false;
         }
-        return isPalindrome(word);
+        return isPalindrome(word, cc);
     }
 
     public boolean isPalindrome(String word) {
-        return isPalindrome(wordToDeque(word));
+        return isPalindrome(word, new CharacterComparator() {
+            @Override
+            public boolean equalChars(char x, char y) {
+                return x == y;
+            }
+        });
+    }
+
+    public boolean isPalindrome(String word, CharacterComparator cc) {
+        Deque<Character> lst = wordToDeque(word);
+        return isPalindrome(lst, cc);
     }
 
 }
