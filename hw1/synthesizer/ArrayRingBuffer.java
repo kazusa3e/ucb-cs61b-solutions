@@ -2,8 +2,6 @@ package synthesizer;
 
 import java.util.Iterator;
 
-import javax.management.RuntimeErrorException;
-
 // Make sure to make this class and all of its methods public
 public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
 
