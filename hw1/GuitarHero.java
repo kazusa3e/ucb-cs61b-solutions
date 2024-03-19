@@ -7,11 +7,11 @@ import synthesizer.GuitarString;
 public class GuitarHero {
 
     private static final double CONCERT_A = 440.0;
-    private static final String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+    private static final String KEYBOARD = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
     public static void main(String[] args) {
-        GuitarString[] guitarStrings = new GuitarString[keyboard.length()];
-        for (int ix = 0; ix != keyboard.length(); ++ix) {
+        GuitarString[] guitarStrings = new GuitarString[KEYBOARD.length()];
+        for (int ix = 0; ix != KEYBOARD.length(); ++ix) {
             guitarStrings[ix] = new GuitarString(
                     CONCERT_A * Math.pow(2, (ix - 24) / 12));
         }
@@ -21,8 +21,8 @@ public class GuitarHero {
             /* check if the user has typed a key; if so, process it */
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();
-                if (keyboard.indexOf(key) != -1)  {
-                    guitarStrings[keyboard.indexOf(key)].pluck();
+                if (KEYBOARD.indexOf(key) != -1)  {
+                    guitarStrings[KEYBOARD.indexOf(key)].pluck();
                 }
             }
 
