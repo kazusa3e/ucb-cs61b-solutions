@@ -1,6 +1,8 @@
 package synthesizer;
 
-public interface BoundedQueue<T> {
+import java.util.Iterator;
+
+public interface BoundedQueue<T> extends Iterable<T> {
 
     public int capacity();
 
@@ -19,5 +21,7 @@ public interface BoundedQueue<T> {
     default boolean isFull() {
         return fillCount() == capacity();
     }
+
+    abstract Iterator<T> iterator();
 
 }

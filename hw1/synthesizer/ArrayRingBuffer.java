@@ -78,5 +78,30 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         return this.rb[this.first];
     }
 
-    // TODO: When you get to part 5, implement the needed code to support iteration.
+    private class ArrayRingBufferIterator implements Iterator<T> {
+
+        private int iter;
+
+        public ArrayRingBufferIterator() {
+            this.iter = ArrayRingBuffer.this.first;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return this.iter != ArrayRingBuffer.this.last;
+        }
+
+        @Override
+        public T next() {
+            T ret = ArrayRingBuffer.this.rb[this.iter];
+            this.iter = (this.iter + 1 + ArrayRingBuffer.this.capacity)
+                    % ArrayRingBuffer.this.capacity;
+            return ret;
+        }
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayRingBufferIterator();
+    }
 }
