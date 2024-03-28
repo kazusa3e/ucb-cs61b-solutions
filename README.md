@@ -13,5 +13,5 @@ Include solutions of all labs, homeworks, discusses, and projects.
 
 ## TODO
 
-- [ ] (lab05): word generation algorithm
+- [ ] (lab05): world generation algorithm
 - [ ] (proj02)
