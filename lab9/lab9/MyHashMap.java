@@ -2,12 +2,15 @@ package lab9;
 
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
+
+import edu.princeton.cs.algs4.Queue;
 
 /**
- *  A hash table-backed Map implementation. Provides amortized constant time
- *  access to elements via get(), remove(), and put() in the best case.
+ * A hash table-backed Map implementation. Provides amortized constant time
+ * access to elements via get(), remove(), and put() in the best case.
  *
- *  @author Your name here
+ * @author Your name here
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
 
@@ -35,9 +38,10 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
     }
 
-    /** Computes the hash function of the given key. Consists of
-     *  computing the hashcode, followed by modding by the number of buckets.
-     *  To handle negative numbers properly, uses floorMod instead of %.
+    /**
+     * Computes the hash function of the given key. Consists of
+     * computing the hashcode, followed by modding by the number of buckets.
+     * To handle negative numbers properly, uses floorMod instead of %.
      */
     private int hash(K key) {
         if (key == null) {
@@ -48,24 +52,34 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return Math.floorMod(key.hashCode(), numBuckets);
     }
 
-    /* Returns the value to which the specified key is mapped, or null if this
+    /*
+     * Returns the value to which the specified key is mapped, or null if this
      * map contains no mapping for the key.
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        if (key == null) {
+            return null;
+        }
+        return this.buckets[hash(key)].get(key);
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        ArrayMap<K, V> bucket = this.buckets[hash(key)];
+        if (bucket.containsKey(key)) {
+            bucket.put(key, value);
+            return;
+        }
+        bucket.put(key, value);
+        this.size += 1;
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return this.size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
@@ -73,27 +87,86 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> ret = new TreeSet<>();
+        for (int ix = 0; ix != this.buckets.length; ++ix) {
+            for (K key : this.buckets[ix].keySet()) {
+                ret.add(key);
+            }
+        }
+        return ret;
     }
 
-    /* Removes the mapping for the specified key from this map if exists.
+    /*
+     * Removes the mapping for the specified key from this map if exists.
      * Not required for this lab. If you don't implement this, throw an
-     * UnsupportedOperationException. */
+     * UnsupportedOperationException.
+     */
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        return this.buckets[hash(key)].remove(key);
     }
 
-    /* Removes the entry for the specified key only if it is currently mapped to
+    /*
+     * Removes the entry for the specified key only if it is currently mapped to
      * the specified value. Not required for this lab. If you don't implement this,
-     * throw an UnsupportedOperationException.*/
+     * throw an UnsupportedOperationException.
+     */
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+        return this.buckets[hash(key)].remove(key, value);
+    }
+
+    private class MyHashMapIterator implements Iterator<K> {
+
+        private int bucketIdx;
+        private Queue<K> bucketKeysets;
+
+        public MyHashMapIterator() {
+            this.bucketIdx = 0;
+            this.bucketKeysets = new Queue<>();
+            for (K key : MyHashMap.this.buckets[this.bucketIdx].keySet()) {
+                this.bucketKeysets.enqueue(key);
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (!this.bucketKeysets.isEmpty()) {
+                return true;
+            }
+            while (this.bucketKeysets.isEmpty() && this.bucketIdx != MyHashMap.this.buckets.length) {
+                this.bucketIdx += 1;
+                for (K key : MyHashMap.this.buckets[this.bucketIdx].keySet()) {
+                    this.bucketKeysets.enqueue(key);
+                }
+            }
+            if (this.bucketIdx == MyHashMap.this.buckets.length) {
+                return false;
+            }
+            if (!this.bucketKeysets.isEmpty()) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public K next() {
+            while (this.bucketKeysets.isEmpty() && this.bucketIdx != MyHashMap.this.buckets.length) {
+                this.bucketIdx += 1;
+                for (K key : MyHashMap.this.buckets[this.bucketIdx].keySet()) {
+                    this.bucketKeysets.enqueue(key);
+                }
+            }
+            if (!this.bucketKeysets.isEmpty()) {
+                return this.bucketKeysets.dequeue();
+            }
+            return null;
+        }
+
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        return new MyHashMapIterator();
     }
 }
