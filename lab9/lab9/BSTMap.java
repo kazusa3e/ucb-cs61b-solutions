@@ -136,21 +136,46 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         return ret;
     }
 
-    private V removeHelper(K key, Node p) {
+    private Node removeMax(Node p) {
+        if (p == null) {
+            return null;
+        }
+        if (p.right == null) {
+            return p.left;
+        }
+        p.right = removeMax(p.right);
+        return p;
+    }
+
+    private Node max(Node p) {
+        if (p == null) return null;
+        if (p.right == null) return p;
+        return max(p.right);
+    }
+
+    private Node removeHelper(K key, Node p) {
         if (p == null) {
             return null;
         }
         if (key.compareTo(p.key) < 0 && p.left != null) {
-            return removeHelper(key, p.left);
+            p.left = removeHelper(key, p.left);
+            return p;
         }
         if (key.compareTo(p.key) > 0 && p.right != null) {
-            return removeHelper(key, p.right);
+            p.right = removeHelper(key, p.right);
+            return p;
         }
         if (key.compareTo(p.key) == 0) {
-            V ret = p.value;
-            p = null;
-            this.size -= 1;
-            return ret;
+            if (p.left == null) {
+                return p.right;
+            }
+            if (p.right == null) {
+                return p.left;
+            }
+            Node n = max(p.left);
+            n.left = removeMax(p.left);
+            n.right = p.right;
+            return n;
         }
         return null;
     }
@@ -162,27 +187,29 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      */
     @Override
     public V remove(K key) {
-        // if (this.root == null) {
-        // return null;
-        // }
-        return removeHelper(key, this.root);
+        V ret = this.get(key);
+        if (ret != null) {
+            this.root = removeHelper(key, this.root);
+            this.size -= 1;
+        }
+        return ret;
     }
 
-    private V removeHelper(K key, V val, Node p) {
-        if (p == null) {
-            return null;
-        }
+    private Node removeHelper(K key, V val, Node p) {
+        if (p == null) return null;
         if (key.compareTo(p.key) < 0 && p.left != null) {
-            return removeHelper(key, val, p.left);
+            p.left = removeHelper(key, val, p.left);
         }
-        if (key.compareTo(p.key) < 0 && p.right != null) {
-            return removeHelper(key, val, p.right);
+        if (key.compareTo(p.key) > 0 && p.right != null) {
+            p.right = removeHelper(key, val, p.right);
         }
         if (key.compareTo(p.key) == 0 && val.equals(p.value)) {
-            V ret = p.value;
-            p = null;
-            this.size -= 1;
-            return ret;
+            if (p.left == null) return p.right;
+            if (p.right == null) return p.left;
+            Node n = max(p.left);
+            n.left = removeMax(p.left);
+            n.right = p.right;
+            return n;
         }
         return null;
     }
@@ -194,7 +221,12 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      **/
     @Override
     public V remove(K key, V value) {
-        return removeHelper(key, value, this.root);
+        V ret = this.get(key);
+        if (ret != null && ret.equals(value)) {
+            this.root = removeHelper(key, value, this.root);
+            this.size -= 1;
+        }
+        return ret;
     }
 
     private class BSTMapIterator implements Iterator<K> {
