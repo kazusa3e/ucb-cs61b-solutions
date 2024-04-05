@@ -15,3 +15,4 @@ Include solutions of all labs, homeworks, discusses, and projects.
 
 - [ ] (lab05): world generation algorithm
 - [ ] (proj02)
+- [ ] (hw03) prefect hash function
