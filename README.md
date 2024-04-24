@@ -1,6 +1,7 @@
 # UCB CS61B
 
-> solutions for CS61B, 18sp, University of California.
+> Solutions of CS61B, 18sp, University of California.
+> 
 > link: https://sp18.datastructur.es/
 
 ## WARNING
@@ -9,7 +10,7 @@ PLEASE FOLLOW POLICIES OF CS61B,  SEE: [HERE](https://sp18.datastructur.es/about
 
 ## CONTENTS
 
-Include solutions of all labs, homeworks, discusses, and projects.
+Include solutions of all labs, homeworks and projects.
 
 ## TODO
 
