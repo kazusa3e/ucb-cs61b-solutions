@@ -16,4 +16,5 @@ Include solutions of all labs, homeworks and projects.
 
 - [ ] (lab05): world generation algorithm
 - [ ] (proj02)
-- [ ] (hw03) prefect hash function
+- [ ] (hw03): prefect hash function
+- [ ] (lab11): A* algorithm
