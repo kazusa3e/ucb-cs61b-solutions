@@ -21,14 +21,11 @@ public class Solver {
 
 //    private WorldState initial;
     private MinPQ<Node> pq;
-    private Set<WorldState> visited;
     private Node solution;
 
     public Solver(WorldState initial) {
-        pq = new MinPQ<>(1, (a, b) -> a.distance - b.distance);
+        pq = new MinPQ<>(1, (a, b) -> a.distance + a.state.estimatedDistanceToGoal() - b.distance - b.state.estimatedDistanceToGoal());
         pq.insert(new Node(initial, 0, null));
-        visited = new HashSet<>();
-        visited.add(initial);
         while (!pq.isEmpty()) {
             Node curr = pq.delMin();
             if (curr.state.isGoal()) {
@@ -36,18 +33,12 @@ public class Solver {
                 return;
             }
             for (WorldState n : curr.state.neighbors()) {
-                if (visited.contains(n)) {
+                if (n.estimatedDistanceToGoal() == curr.state.estimatedDistanceToGoal() + 1) {
                     continue;
                 }
-                // TODO: optim
-//                if (n.estimatedDistanceToGoal() == curr.state.estimatedDistanceToGoal()) {
-//                    continue;
-//                }
                 pq.insert(new Node(n, curr.distance + 1, curr));
-                visited.add(n);
             }
         }
-        // TODO:
     }
     public int moves() {
         if (solution == null) {
