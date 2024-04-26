@@ -90,8 +90,8 @@ public class Board implements WorldState {
                 if (tileAt(row, col) == BLANK) {
                     continue;
                 }
-                int expectedRow = tileAt(row, col) / N;
-                int expectedCol = (tileAt(row, col) % N) - 1;
+                int expectedRow = (tileAt(row, col) - 1) / N;
+                int expectedCol = (tileAt(row, col) - 1) % N;
                 ret += Math.abs(expectedRow - row) + Math.abs(expectedCol - col);
             }
         }
@@ -102,6 +102,7 @@ public class Board implements WorldState {
         return manhattan();
     }
 
+    @Override
     public boolean equals(Object y) {
         if (!(y instanceof Board)) {
             return false;
@@ -124,17 +125,16 @@ public class Board implements WorldState {
     }
 
     @Override
-    public boolean isGoal() {
-        return hamming() == 0;
+    public int hashCode() {
+        return Arrays.deepHashCode(data);
     }
 
     public String toString() {
         StringBuilder s = new StringBuilder();
-        int N = size();
         s.append(N + "\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                s.append(String.format("%2d ", tileAt(i,j)));
+                s.append(String.format("%2d ", tileAt(i, j)));
             }
             s.append("\n");
         }
