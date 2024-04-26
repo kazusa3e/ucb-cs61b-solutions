@@ -16,5 +16,6 @@ public class AlphabetEasyPuzzleSolver {
         for (WorldState ws : solver.solution()) {
             StdOut.println(ws);
         }
+        StdOut.println("PQ insert count = " + solver.PQInsertCounts());
     }
 }

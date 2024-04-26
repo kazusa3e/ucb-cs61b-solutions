@@ -79,8 +79,7 @@ public class CommonBugDetector {
 
         AlphabetEasyPuzzle aep = new AlphabetEasyPuzzle('a');
         Solver s3 = new Solver(aep);
-        System.out.println("TODO: Print out the number of total things ever"
-                           + " enqueued in your MinPQ and compare to the comments.");
+        System.out.println("PQ insert count: " + s3.PQInsertCounts());
         for (var a: s3.solution()) {
             System.out.print(a + " -> ");
         }
