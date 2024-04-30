@@ -1,3 +1,6 @@
+import java.util.Map;
+import java.util.TreeMap;
+
 /**
  * Class with 2 ways of doing Counting sort, one naive way and one "better" way
  *
@@ -66,7 +69,17 @@ public class CountingSort {
      * @param arr int array that will be sorted
      */
     public static int[] betterCountingSort(int[] arr) {
-        // TODO make counting sort work with arrays containing negative numbers.
-        return null;
+        Map<Integer, Integer> map = new TreeMap<>();
+        for (int i : arr) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
+        int[] ret = new int[arr.length];
+        int idx = 0;
+        for (int key: map.keySet()) {
+            for (int ix = 0; ix != map.get(key); ++ix) {
+                ret[idx++] = key;
+            }
+        }
+        return ret;
     }
 }
