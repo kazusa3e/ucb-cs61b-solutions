@@ -36,10 +36,21 @@ public class TestPlip {
 
     @Test
     public void testReplicate() {
+        Plip p = new Plip(2);
+        assertEquals(2, p.energy(), 0.01);
+        Plip baby = p.replicate();
+        assertNotSame(baby, p);
+        assertEquals(1, p.energy(), 0.01);
+        assertEquals(1, baby.energy(), 0.01);
+
+        baby = p.replicate();
+        assertNotSame(baby, p);
+        assertEquals(0.5, p.energy(), 0.01);
+        assertEquals(0.5, baby.energy(), 0.01);
 
     }
 
-    //@Test
+    @Test
     public void testChoose() {
         Plip p = new Plip(1.2);
         HashMap<Direction, Occupant> surrounded = new HashMap<Direction, Occupant>();
