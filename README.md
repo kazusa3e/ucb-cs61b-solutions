@@ -19,3 +19,7 @@ Include solutions of all labs, homeworks and projects.
 - [ ] (hw03): prefect hash function
 - [ ] (lab11): A* algorithm
 - [ ] (lab13): counting sort and radix sort
+- [ ] (proj03)
+- [ ] (lab14)
+- [ ] (hw05)
+- [ ] (hw06)
